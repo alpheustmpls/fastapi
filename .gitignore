@@ -1,0 +1,14 @@
+# Caches
+__MACOSX/
+.DS_Store
+.ruff_cache/
+__pycache__/
+
+# Virtual environments
+.venv/
+
+# Metadata
+*.egg-info/
+
+# Logs
+*.log
