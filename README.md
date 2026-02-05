@@ -6,12 +6,13 @@ This template provides a setup for a FastAPI project.
 
 Please install the following dependencies:
 
-| Dependencies                                   | Description                            |
-| ---------------------------------------------- | -------------------------------------- |
-| [Python 3.13+](https://www.python.org/)        | Programming language                   |
-| [just](https://just.systems)                   | Command runner                         |
-| [ls-lint](https://ls-lint.org/)                | Linting tool for directories and files |
-| [typos-cli](https://github.com/crate-ci/typos) | Spell checker                          |
+| Dependencies                                    | Description                            |
+| ----------------------------------------------- | -------------------------------------- |
+| [Python 3.13+](https://www.python.org/)         | Programming language                   |
+| [just](https://just.systems)                    | Command runner                         |
+| [ls-lint](https://ls-lint.org/)                 | Linting tool for directories and files |
+| [typos-cli](https://github.com/crate-ci/typos)  | Spell checker                          |
+| [mkcert](https://github.com/FiloSottile/mkcert) | HTTPS certificate generator            |
 
 ## Commands
 
