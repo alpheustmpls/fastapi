@@ -1,5 +1,5 @@
 set shell := ["bash", "-cu"]
-set windows-shell := ["powershell"]
+set windows-shell := ["pwsh", "-Command"]
 
 # Default action
 _:
@@ -20,11 +20,27 @@ up:
 fmt:
     uv run ruff format
 
+# Lint code with ls-lint
+ls-lint:
+    ls-lint
+
+# Lint code with ls-lint
+lslint:
+    just ls-lint
+
+# Lint code with typos-cli
+typos:
+    typos
+
+# Lint code with ruff
+ruff:
+    uv run ruff check --fix
+
 # Lint the code
 lint:
-    ls-lint
-    typos
-    uv run ruff check --fix
+    just ls-lint
+    just typos
+    just ruff
 
 # Check types
 type:
