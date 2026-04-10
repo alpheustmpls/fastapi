@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -28,50 +29,52 @@ from src.configs.vars import ROOT, get_py_env
 from src.router.main import router
 
 
-def load_env(
-    name: str,
+def load_env_file(
     path: Path,
+    name: str,
 ) -> None:
-    if Path.is_file(path):
-        load_dotenv(
-            dotenv_path=path,
-            override=True,
+    if not path.exists():
+        return
+
+    load_dotenv(
+        dotenv_path=path,
+        override=True,
+    )
+
+    logger.info(f"Environment loaded: {name}")
+
+
+def load_env_files(
+    root: Path,
+    py_env: str,
+) -> None:
+    files: list[str] = [
+        ".env",
+        ".env.local",
+        f".env.{py_env}",
+        f".env.{py_env}.local",
+    ]
+
+    for file in files:
+        load_env_file(
+            path=root / file,
+            name=file,
         )
 
-        logger.info(f"Environment loaded: {name}")
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    py_env: str = get_py_env()
+
+    load_env_files(
+        root=Path(ROOT),
+        py_env=py_env,
+    )
+
+    yield
 
 
-py_env: str = get_py_env()
-
-env: str = ".env"
-
-load_env(
-    name=env,
-    path=Path(ROOT) / env,
-)
-
-env: str = ".env.local"
-
-load_env(
-    name=env,
-    path=Path(ROOT) / env,
-)
-
-env: str = f".env.{py_env}"
-
-load_env(
-    name=env,
-    path=Path(ROOT) / env,
-)
-
-env: str = f".env.{py_env}.local"
-
-load_env(
-    name=env,
-    path=Path(ROOT) / env,
-)
-
-app: FastAPI = FastAPI()
+app: FastAPI = FastAPI(lifespan=lifespan)
 
 app.include_router(router)
 
