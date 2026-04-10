@@ -3,9 +3,7 @@ set windows-shell := ["pwsh", "-Command"]
 
 # Default action
 _:
-    just fmt
-    just lint
-    just type
+    just --list -u
 
 # Install
 i:
@@ -45,6 +43,12 @@ lint:
 # Check types
 type:
     uv run ty check
+
+# Check code
+check:
+    just fmt
+    just lint
+    just type
 
 # Generate HTTPS certificates
 cert:
