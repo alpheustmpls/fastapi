@@ -68,7 +68,7 @@ dev:
     --port 3001 \
     --log-level "trace" \
     --reload \
-    src.app.main:app
+    src.main:app
 
 # Start the dev server with HTTP
 http:
