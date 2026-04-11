@@ -84,13 +84,42 @@ http:
 start:
     PY_ENV=production uv run uvicorn --host 0.0.0.0 --port 3000 src.main:app
 
-# Clean caches
-clean:
+# Clean caches (Linux)
+clean-linux:
     rm -rf .ruff_cache
     find . -type d -name "*.egg-info" -exec rm -rf {} +
     find . -type d -name "__pycache__" -exec rm -rf {} +
 
+# Clean caches (macOS)
+clean-macos:
+    just clean-linux
+
+# Clean caches (Windows)
+clean-windows:
+    Remove-Item -Recurse -Force .ruff_cache -ErrorAction SilentlyContinue
+    Get-ChildItem -Recurse -Directory -Filter "*.egg-info" | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+    Get-ChildItem -Recurse -Directory -Filter "__pycache__" | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+
+# Clean
+clean:
+    just clean-{{os()}}
+
+# Clean everything (Linux)
+clean-all-linux:
+    just clean
+
+    rm -rf .venv
+
+# Clean everything (macOS)
+clean-all-macos:
+    just clean-all-linux
+
+# Clean everything (Windows)
+clean-all-windows:
+    just clean
+    
+    Remove-Item -Recurse -Force .venv -ErrorAction SilentlyContinue
+
 # Clean everything
 clean-all:
-    just clean
-    rm -rf .venv
+    just clean-all-{{os()}}
