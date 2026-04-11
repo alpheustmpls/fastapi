@@ -13,5 +13,5 @@ def get_py_env() -> str:
     return var("PY_ENV", "development")
 
 
-def get_app_version() -> str:
-    return var("APP_VERSION", "0.0.0")
+def get_version() -> str:
+    return var("VERSION", "0.0.0")
