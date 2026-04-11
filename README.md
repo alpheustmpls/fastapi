@@ -8,11 +8,12 @@ Please install the following dependencies:
 
 | Dependencies                                    | Description                            |
 | ----------------------------------------------- | -------------------------------------- |
-| [Python 3.13+](https://www.python.org/)         | Programming language                   |
-| [just](https://just.systems)                    | Command runner                         |
-| [ls-lint](https://ls-lint.org/)                 | Linting tool for directories and files |
-| [typos-cli](https://github.com/crate-ci/typos)  | Spell checker                          |
+| [Python 3.13+](https://www.python.org)          | Programming language                   |
+| [uv](https://docs.astral.sh/uv)                 | Package manager for Python             |
 | [mkcert](https://github.com/FiloSottile/mkcert) | HTTPS certificate generator            |
+| [just](https://just.systems)                    | Command runner                         |
+| [ls-lint](https://ls-lint.org)                  | Linting tool for directories and files |
+| [typos-cli](https://github.com/crate-ci/typos)  | Spell checker                          |
 
 ## Commands
 
@@ -34,14 +35,6 @@ This command will upgrade Python dependencies.
 just up
 ```
 
-### Default Command
-
-This command will do formatting and linting.
-
-```sh
-just
-```
-
 ### Formatting
 
 This command will format the code.
@@ -56,6 +49,14 @@ This command will lint the code.
 
 ```sh
 just lint
+```
+
+### Checking
+
+This command will do formatting and linting.
+
+```sh
+just check
 ```
 
 ### Development (HTTPS)
@@ -81,4 +82,18 @@ This command will build the code and start the production server.
 
 ```sh
 just start
+```
+
+### Cleaning
+
+This command will clean the unnecessary files.
+
+```sh
+just clean
+```
+
+This command will clean all unnecessary files including the `.venv` directory.
+
+```sh
+just clean-all
 ```
