@@ -1,4 +1,4 @@
-from typing import Optional, Self
+from typing import Self
 
 from fastapi.responses import JSONResponse
 from jder_fastapi.responses.json import (
@@ -13,13 +13,13 @@ class ServiceError(Exception):
     Custom error for service-layer failures.
     """
 
-    def __init__(self, message: Optional[str] = None) -> None:
+    def __init__(self, message: str | None = None) -> None:
         super().__init__(message)
 
         self._status: int = 500
         self._code: str = "unknown"
         self._path: list[str] = []
-        self._message: Optional[str] = message
+        self._message: str | None = message
 
     def set_status(self, status: int) -> Self:
         self._status = status
@@ -46,7 +46,7 @@ class ServiceError(Exception):
         self._message = message
         return self
 
-    def get_message(self) -> Optional[str]:
+    def get_message(self) -> str | None:
         return self._message
 
     def to_json_response_error(self) -> JsonResponseError:
