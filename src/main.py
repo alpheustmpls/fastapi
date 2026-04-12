@@ -19,6 +19,7 @@ from scalar_fastapi import (
     Theme,
     get_scalar_api_reference,  # type: ignore
 )
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from src.classes.enums.error import (
     ResponseErrorCode,
@@ -26,6 +27,7 @@ from src.classes.enums.error import (
 )
 from src.configs.log import logger
 from src.configs.vars import ROOT, get_py_env
+from src.middlewares.on_exception import on_exception_handler
 from src.router.main import router
 
 
@@ -91,9 +93,13 @@ async def route_api() -> Response:
 app.mount("/", StaticFiles(directory=Path(ROOT) / "public"), name="static")
 
 
-@app.exception_handler(404)
-async def not_found(_: Request, exc: HTTPException) -> JSONResponse:
-    code: ResponseErrorCode = ResponseErrorCode.NOT_FOUND
+@app.exception_handler(StarletteHTTPException)
+async def not_found(_: Request, exc: StarletteHTTPException) -> Response:
+    match exc.status_code:
+        case 404:
+            code = ResponseErrorCode.NOT_FOUND
+        case _:
+            code = ResponseErrorCode.SERVER
 
     return createJsonResponse(
         options=CreateJsonFailureResponseOptions(
@@ -113,3 +119,8 @@ async def validation_exception_handler(
     req: Request, exc: RequestValidationError
 ) -> Response:
     return request_validation_exception_handler(req, exc)
+
+
+@app.exception_handler(Exception)
+async def exception_handler(req: Request, exc: Exception) -> Response:
+    return await on_exception_handler(req, exc)
