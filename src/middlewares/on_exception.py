@@ -10,8 +10,8 @@ from src.classes.enums.error import (
     ResponseErrorCode,
     get_response_error_message,
 )
+from src.classes.exceptions.service import ServiceError
 from src.configs.log import logger
-from src.lib.errors.service import ServiceError
 
 
 async def on_exception_handler(_: Request, exc: Exception) -> JSONResponse:
