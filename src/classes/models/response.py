@@ -12,7 +12,7 @@ class JsonResponseErrorModel[C = str, P = str, M = str](BaseModel):
     """
     Code representing the error.
     """
-    path: list[P] = []
+    path: list[P]
     """
     Indicates where the error occurred.
     """
@@ -54,7 +54,7 @@ class JsonFailureResponseModel[E = Any](BaseModel):
     """
     Requested information for the response when `success` is `true`.
     """
-    errors: list[E] = []
+    errors: list[E]
     """
     A list of errors for the response when `success` is `false`.
     """
