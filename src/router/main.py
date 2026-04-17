@@ -12,7 +12,7 @@ router: APIRouter = APIRouter()
 
 @router.get(
     "/",
-    operation_id="getIndex",
+    operation_id="get_index",
     responses={
         200: {
             "model": JsonSuccessResponseModel[Any],

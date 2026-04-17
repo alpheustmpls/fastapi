@@ -13,7 +13,7 @@ router: APIRouter = APIRouter()
 
 @router.get(
     "/",
-    operation_id="getInfo",
+    operation_id="get_info",
     responses={
         200: {
             "model": JsonSuccessResponseModel[Info],
