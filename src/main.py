@@ -1,7 +1,6 @@
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.requests import Request
@@ -25,43 +24,10 @@ from src.classes.enums.error import (
     ResponseErrorCode,
     get_response_error_message,
 )
-from src.configs.log import logger
 from src.configs.vars import ROOT, get_py_env
+from src.functions.env import load_env_files
 from src.middlewares.on_exception import on_exception_handler
 from src.router.main import router
-
-
-def load_env_file(
-    path: Path,
-    name: str,
-) -> None:
-    if not path.exists():
-        return
-
-    load_dotenv(
-        dotenv_path=path,
-        override=True,
-    )
-
-    logger.info(f"Environment loaded: {name}")
-
-
-def load_env_files(
-    root: Path,
-    py_env: str,
-) -> None:
-    files: list[str] = [
-        ".env",
-        ".env.local",
-        f".env.{py_env}",
-        f".env.{py_env}.local",
-    ]
-
-    for file in files:
-        load_env_file(
-            path=root / file,
-            name=file,
-        )
 
 
 @asynccontextmanager
