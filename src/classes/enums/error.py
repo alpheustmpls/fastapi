@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class ResponseErrorCode(str, Enum):
+class ResponseErrorCode(StrEnum):
     """
     Response error code.
     """
@@ -13,7 +13,7 @@ class ResponseErrorCode(str, Enum):
     SERVER = "server"
 
 
-class ResponseErrorMessage(str, Enum):
+class ResponseErrorMessage(StrEnum):
     """
     Response error message.
     """

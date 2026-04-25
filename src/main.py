@@ -3,9 +3,9 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
-from fastapi.exceptions import HTTPException, RequestValidationError
+from fastapi.exceptions import RequestValidationError
 from fastapi.requests import Request
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import Response
 from fastapi.staticfiles import StaticFiles
 from jder_fastapi.handlers import (
     request_validation_exception_handler,

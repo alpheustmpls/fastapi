@@ -11,7 +11,6 @@ from src.classes.enums.error import (
     get_response_error_message,
 )
 from src.classes.exceptions.service import ServiceError
-from src.configs.log import logger
 
 
 async def on_exception_handler(_: Request, exc: Exception) -> JSONResponse:
